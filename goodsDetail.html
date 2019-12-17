@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>桃子</title>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/zepto.js" type="text/javascript" charset="utf-8"></script>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/global.css" />
+	<link rel="stylesheet" href="css/store.css">
+	<link rel="stylesheet" href="css/goodsDetail.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css" />
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+	</script>
+</head>
+
+<body>
+	<main>
+		<div class="detailBtnBox">
+			<button class="back" onclick="javascript:history.back(-1)"></button>
+			<button class="service"></button>
+		</div>
+		<ul id="goodsDetail" class="mui-table-view goods">
+
+		</ul>
+		<div class="bgline"></div>
+		<div class="goodsTip">
+			<p class="goodsTipTitle">商品承诺</p>
+			<p class="goodsTipContent">1.凡在付款后未配送的商品，均可申请线上退款，金额将原路返回您的支付账户；</p>
+			<p class="goodsTipContent">2.若您收货后发现商品有质量问题，我们将无条件照单赔偿一份商品。</p>
+		</div>
+	</main>
+	<footer>
+		<div class="bottomTip">
+			请在提交订单后确认配送费及价格，如有疑问请电联商家
+		</div>
+		<ul class="goodsList" id="shopCar">
+
+		</ul>
+		<div class="bottomBar">
+			<div class="shopCar">
+				<i class="fa fa-shopping-cart shoppingIcon" aria-hidden="true"></i>
+				<span class="badge">0</span>
+			</div>
+			<div class="bottomRight">
+				<div class="totalBottom">
+					<span>合计:</span>
+					<span class="bRed">￥</span>
+					<span class="bRed bBig">18.98</span>
+				</div>
+				<div class="goShoppping" id="goShoppping">
+					<span style="margin-right:4px;">去结算</span>
+					<i class="fa fa-caret-right" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+		<ul id="esc" style="display: none;"></ul>
+	</footer>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+
+
+
+
+		console.log(localStorage.localShopCar)
+		console.log(localStorage.totalPrice)
+		console.log(localStorage.badge)
+
+		if (localStorage.localShopCar == 'null') {
+			localStorage.setItem("localShopCar", [])
+			$('.badge').text('0')
+			$('.bRed.bBig').text('0')
+			localStorage.setItem("totalPrice", '0')
+			localStorage.setItem("badge", '0')
+		}
+
+		$('.badge').text(localStorage.badge)
+		$('.bRed.bBig').text(localStorage.totalPrice)
+		$('#shopCar').html(localStorage.localShopCar)
+		$('#esc').html(localStorage.localShopCar)
+		$('footer').addClass('store')
+
+		var shopCarHtml = localStorage.localShopCar
+		var str = location.href
+		//获取页面参数
+		function $_GET(name, urls) {
+			var url = urls || window.location.href;
+			if (!name == true) {
+				var data = url.match(new RegExp("([^?&]*)=([^?&]*)", "ig"));
+				return data != null ? data : [];
+			} else {
+				var test = new RegExp(name + "=", "i").test(url);
+				return test ? url.match(new RegExp(name + "=([^?&]*)", "i"))[1] : "";
+			}
+		};
+		var gtId = $_GET('id');
+
+
+		mui.ajax('../json/goods.json', {
+			data: {},
+			dataType: 'json', //服务器返回json格式数据
+			type: 'get', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function (data) {
+				var html = [];
+				var shopCarHtml = []
+				for (let i = 0; i < data.length; i++) {
+					let cardNum = data[i].goods.length
+					for (var j = 0; j < cardNum; j++) {
+						let item = data[i].goods[j]
+						if (item.gtId == gtId) {
+							html.push(
+								'<li class="mui-table-view-cell gtId' + item.gtId + '" id="' + item.gtId +
+								'">' +
+								'<div class="mui-card-content">' +
+								'<div class="mui-card-content-inner">' +
+								'<div class="leftBox">' +
+								'<div class="goodsImg">' +
+								'<img src="' + item.product.productImg + '">' +
+								'</div>' +
+								'<div>' +
+								'<p class="goodsName">' + item.product.productName + ' <span>' + item.weight +
+								'g</span></p>' +
+								'<p class="weight">剩余 <span class="stock">' + item.productNumber +
+								'</span></p>' +
+								'<p>' +
+								'<span class="colorRed">￥</span><span class="colorRed price">' + item.price +
+								'</span>' +
+								'<span class="lineThrough">￥</span><span class="lineThrough">4.98</span>' +
+								'</p>' +
+								'</div>' +
+								'</div>' +
+								'<div class="rightBox">' +
+								'<div class="positionBottom">' +
+								'<button class="reduce none"><i class="fa fa-minus sIcon" aria-hidden="true"></i></button>' +
+								'<span class="count none">0</span>' +
+								'<button class="add btnRed"><i class="fa fa-plus sIcon white" aria-hidden="true"></i></button>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</li>'
+							)
+							$('#goodsDetail').html(html)
+							$('#shopCar li').each(function () {
+								if ($(this).attr('id') == item.gtId) {
+									$('#' + item.gtId).addClass('addShopcar')
+									$('#' + item.gtId).find('.count').text($(this).find('.count').text())
+									$('#' + item.gtId).find('.add').removeClass('btnRed').siblings(
+										'.count').removeClass('none')
+									$('#' + item.gtId).find('.add').children('.fa').removeClass('white')
+									$('#' + item.gtId).find('.add').siblings('.reduce').removeClass(
+										'none')
+								}
+							})
+						}
+					}
+				}
+				add()
+				reduce()
+			},
+			error: function (xhr, type, errorThrown) {
+				//异常处理；
+				console.log(type);
+			}
+		});
+
+		var hasShopList = false
+		$('.shopCar').on('click', function () {
+			hasShopList = !hasShopList
+			if (hasShopList) {
+				$('.goodsList').css('height', '200px')
+				$('.bottomTip').addClass('position')
+				$('.bottomBar').addClass('position')
+				$('body').append(`<div class="bigBg"></div>`);
+				// let count = $('.badge').text()
+				// $('#shopCar').html(
+				// 	'<div class="totalTip" style="display:block">已选商品 <span class="shopcarTotalCount">' +
+				// 	count + '</span> 件</div>')
+				console.log($('#esc').html())
+				$('#shopCar').html(shopCarHtml)
+				$('.shopcarTotalCount').text($('.badge').text())
+				add()
+				reduce()
+			} else {
+				$('.goodsList').css('height', '0')
+				$('.bottomTip').removeClass('position')
+				$('.bottomBar').removeClass('position')
+				$('.bigBg').remove();
+			}
+			$('.bigBg').on('click', function () {
+				hasShopList = false
+				$('.goodsList').css('height', '0')
+				$('.bottomTip').removeClass('position')
+				$('.bottomBar').removeClass('position')
+				$('.bigBg').remove();
+			})
+		})
+
+		$('#goShoppping').click(function () {
+			location.href = "confirmOrder.html"
+		})
+
+		function add(e) {
+			$('.add').unbind("click").bind("click", function (e) {
+				e.stopPropagation()
+				if ($(this).parents('li').find('.stock').text() != '0') {
+					$(this).parents('li').addClass('addShopcar')
+					var classList = $(this).parents('li').attr("class")
+					console.log($('#esc').html())
+					$('ul li').each(function () {
+						if ($(this).hasClass(classList)) {
+							let count = parseInt($(this).find('.add').siblings('.count').text())
+							count++
+							if (count == 100) {
+								count = 99
+								mui.toast('不能再多了');
+							}
+							let stock = parseInt($(this).find('.add').parent().parent().siblings(
+								'.leftBox').find('.stock').text())
+							if (count >= stock) {
+								count = stock
+								mui.toast('库存不足');
+							}
+							// console.log(count)
+							$(this).find('.add').removeClass('btnRed').siblings('.count').text(count)
+								.removeClass('none')
+							$(this).find('.add').children('.fa').removeClass('white')
+							$(this).find('.add').siblings('.reduce').removeClass('none')
+						}
+					})
+				} else {
+					mui.toast('库存不足');
+					return
+				}
+
+				let badge = 0
+				let totalPrice = 0
+
+				console.log($('#esc').html())
+
+
+				// if (localStorage.localShopCar == 'null' || localStorage.localShopCar == undefined) {
+				// 	shopCarHtml =
+				// 		'<div class="totalTip" style="display:block">已选商品 <span class="shopcarTotalCount">' +
+				// 		0 + '</span> 件</div>'
+				// }
+
+
+				//购物车没有此商品加进去
+				let shopCarLiListId = []
+				for (let shopCarLiList = 0; shopCarLiList < $('#esc li').length; shopCarLiList++) {
+					shopCarLiListId.push($('#esc li').eq(shopCarLiList).attr('id'))
+				}
+
+				console.log(shopCarLiListId)
+
+				if (shopCarLiListId.indexOf($('#goodsDetail li').attr('id')) == -1) {
+					shopCarHtml += $('#goodsDetail li').prop("outerHTML")
+				} else {
+					console.log($('#esc li'))
+					$('#esc li').each(function () {
+						console.log($(this).attr('id'))
+						if ($(this).attr('id') == $('#goodsDetail li').attr('id')) {
+							$(this).find('.count').text($('#goodsDetail li').find('.count').text())
+						}
+						shopCarHtml = $('#esc').html()
+					})
+				}
+
+				console.log($('#esc').html())
+				$('#esc').html(shopCarHtml)
+
+
+
+				// $('#esc li').each(function () {
+				// 	if ($(this).hasClass('addShopcar')) {
+				// 		shopCarHtml += $(this).prop("outerHTML")
+				// 		if ($(this).find('.count').text() == 0) {
+				// 			shopCarHtml -= $(this).prop("outerHTML")
+				// 		}
+				// 	}
+				// })
+				// console.log(shopCarHtml)
+				// $('#esc').html(shopCarHtml)
+				// console.log($('#esc'))
+
+				localStorage.setItem("localShopCar", shopCarHtml)
+
+				let hasCount = []
+
+				for (var y = 0; y < $('#esc .count').length; y++) {
+					console.log($('#esc .count').length);
+					hasCount.push($('#esc .count').eq(y).text())
+					console.log(hasCount);
+					totalPrice += $('#esc .count').eq(y).text() * $('#esc .count').eq(y).parents('li')
+						.find('.colorRed.price').text()
+				}
+
+				$('.bRed.bBig').text(totalPrice)
+				localStorage.setItem("totalPrice", totalPrice)
+
+				console.log(totalPrice)
+				for (var x = 0; x < hasCount.length; x++) {
+					badge += parseInt(hasCount[x])
+					$('.badge').text(badge)
+
+					localStorage.setItem("badge", badge)
+					$('.shopcarTotalCount').text(badge)
+					// if ($('.shopcarTotalCount')) {
+					// 	$('.shopcarTotalCount').text(badge)
+					// }
+				}
+			})
+		}
+
+		function reduce() {
+			$('.reduce').unbind("click").bind("click", function (e) {
+				e.stopPropagation()
+				var classList = $(this).parents('li').attr("class")
+
+				let count = parseInt($(this).siblings('.count').text())
+				count--
+
+				$('ul li').each(function () {
+					if ($(this).hasClass(classList)) {
+						for (var escLi = 0; escLi < $('#esc li').length; escLi++) {
+							if ($('#esc li').eq(escLi).attr('id') == $('#goodsDetail li').attr('id')) {
+								$('#esc li').eq(escLi).find('.count').text($('#goodsDetail li').find(
+									'.count').text())
+							}
+						}
+						$(this).find('.reduce').siblings('.count').text(count)
+						if (count == 0) {
+							$(this).find('.reduce').siblings('.count').text(count).addClass('none')
+							$(this).find('.reduce').siblings('.add').addClass('btnRed').children(
+								'.fa').addClass('white')
+							$(this).find('.reduce').addClass('none')
+								.find('.reduce').parents('li').removeClass('addShopcar')
+
+							console.log($('#esc li'))
+							for (var escLi = 0; escLi < $('#esc li').length; escLi++) {
+								if ($('#esc li').eq(escLi).attr('id') == $(this).find('.reduce').parents('li')
+									.attr('id')) {
+									$('#esc li').eq(escLi).remove()
+								}
+							}
+
+							var hideNum = $(this).attr('id')
+							$('#shopCar li').each(function () {
+								if ($(this).hasClass('gtId' + hideNum)) {
+									$(this).hide()
+								}
+							})
+						}
+						shopCarHtml = $('#esc').html()
+					}
+				})
+
+
+				let badge = 0
+				let totalPrice = 0
+
+				console.log($('#esc').html())
+
+				$('#esc').html(shopCarHtml)
+
+
+				localStorage.setItem("localShopCar", shopCarHtml)
+
+				let hasCount = []
+				for (var y = 0; y < $('#esc .count').length; y++) {
+					hasCount.push($('#esc .count').eq(y).text())
+					console.log(hasCount);
+					totalPrice += $('#esc .count').eq(y).text() * $('#esc .count').eq(y).parents('li')
+						.find('.colorRed.price').text()
+				}
+
+				$('.bRed.bBig').text(totalPrice)
+				localStorage.setItem("totalPrice", totalPrice)
+
+				console.log(totalPrice)
+				for (var x = 0; x < hasCount.length; x++) {
+					badge += parseInt(hasCount[x])
+					$('.badge').text(badge)
+					// if ($('.shopcarTotalCount')) {
+					// 	$('.shopcarTotalCount').text(badge)
+					// }
+				}
+
+				if (hasCount.length == 0) {
+					$('.badge').text(0)
+				}
+
+
+				localStorage.setItem("badge", badge)
+				$('.shopcarTotalCount').text(badge)
+
+				// if ($('#shopCar').find('.count').text()) {
+				// 	let shopCar = $('#shopCar').find('.count').text().split('')
+				// 	for (var z = 0; z < shopCar.length; z++) {
+				// 		if (shopCar[z] == 0 && isAllEqual(shopCar) == true) {
+				// 			hasShopList = false
+				// 		}
+				// 	}
+				// }
+
+				// let badge = 0
+				// let totalPrice = 0
+				// let hasCount = []
+
+				// let shopCarLiListId = []
+				// for (let shopCarLiList = 0; shopCarLiList < $('#shopCar li').length; shopCarLiList++) {
+				// 	shopCarLiListId.push($('#shopCar li').eq(shopCarLiList).attr('id'))
+				// }
+
+				// console.log(shopCarHtml)
+				// $('#esc').html(shopCarHtml)
+				// console.log($('#esc'))
+				// // console.log($('#esc').find('.count').parents('li').html())
+				// // if($('#esc').find('.count').text() == 0){
+				// // 	console.log($(this))
+				// // }
+				// $('#esc li').each(function () {
+				// 	console.log($(this).find('.count').text());
+				// 	if ($(this).find('.count').text() == 0) {
+				// 		console.log($(this))
+				// 		console.log($('#esc'))
+				// 		// $('#esc').remove($(this))
+				// 		$(this).remove()
+				// 	}
+				// })
+
+				// console.log($('#esc'));
+				// shopCarHtml = $('#esc').html()
+
+				// localStorage.setItem("localShopCar", shopCarHtml)
+
+				// for (var y = 0; y < $('#esc .count').length; y++) {
+				// 	hasCount.push($('#esc .count').eq(y).text())
+				// 	totalPrice += $('#esc .count').eq(y).text() * $('#esc .count').eq(y).parents('li')
+				// 		.find('.colorRed.price').text()
+				// }
+
+				// $('.bRed.bBig').text(totalPrice)
+				// localStorage.setItem("totalPrice", totalPrice)
+
+				// console.log(totalPrice)
+				// for (var x = 0; x < hasCount.length; x++) {
+				// 	badge += parseInt(hasCount[x])
+				// 	console.log(badge)
+				// 	$('.badge').text(badge)
+
+				// 	localStorage.setItem("badge", badge)
+
+				// 	if ($('.shopcarTotalCount')) {
+				// 		$('.shopcarTotalCount').text(badge)
+				// 	}
+
+			})
+		}
+		//判断数组元素是否相同
+		function isAllEqual(array) {
+			if (array.length > 0) {
+				return !array.some(function (value, index) {
+					return value !== array[0];
+				});
+			} else {
+				return true;
+			}
+		}
+	</script>
+</body>
+
+</html>

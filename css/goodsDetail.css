@@ -1,0 +1,144 @@
+body {
+  background: #fff;
+}
+
+.detailImgBox {
+  width: 100%;
+  position: relative;
+}
+
+.detailImgBox > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.detailBtnBox {
+  width: 100%;
+  position: absolute;
+  z-index: 999;
+  top: 10px;
+  left: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailBtnBox .back {
+  border: none;
+  background: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  background: url(../img/back.png) no-repeat center center;
+  background-size: 100% 100%;
+  border-radius: 15px;
+}
+
+.detailBtnBox .service {
+  border: none;
+  background: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  background: url(../img/service.png) no-repeat center center;
+  background-size: 100% 100%;
+  border-radius: 15px;
+}
+
+#goodsDetail .leftBox {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#goodsDetail .leftBox > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  max-height: 100px;
+}
+
+#goodsDetail .leftBox > div {
+  width: 100%;
+  padding: 10px;
+}
+
+#goodsDetail .mui-table-view-cell {
+  padding: 0;
+}
+
+#goodsDetail .positionBottom {
+  right: 10px;
+  bottom: 10px;
+}
+
+#goodsDetail .goodsName {
+  font-size: 16px;
+}
+
+#goodsDetail .goodsName span {
+  display: block;
+  color: #ccc;
+  font-size: 12px;
+}
+
+#goodsDetail .weight,
+#goodsDetail .weight .stock {
+  color: #333;
+}
+
+#goodsDetail .colorRed {
+  font-size: 16px;
+}
+
+.bgline {
+  width: 100%;
+  height: 8px;
+  background: #f2f2f2;
+}
+
+.goodsTip {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.goodsTip p {
+  margin: 0;
+}
+.goodsTip .goodsTipTitle {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.goodsTipContent {
+  font-size: 14px;
+  color: #333;
+}
+
+#goodsDetail .leftBox div.goodsImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.goodsImg img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+}

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>生鲜商城</title>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/zepto.js" type="text/javascript" charset="utf-8"></script>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/global.css" />
+	<link rel="stylesheet" type="text/css" href="css/store.css" />
+	<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css" />
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+	</script>
+	<style>
+		[contenteditable="true"],
+		input,
+		textarea {
+			-webkit-user-select: auto !important;
+			-khtml-user-select: auto !important;
+			-moz-user-select: auto !important;
+			-ms-user-select: auto !important;
+			-o-user-select: auto !important;
+			user-select: auto !important;
+		}
+
+		#search {
+			margin: 0;
+			padding: 0;
+			height: 30px;
+			line-height: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<div class="inputBox">
+			<i class="fa fa-search searchIcon" aria-hidden="true"></i>
+			<input type="text" name="" id="search" value="" placeholder="请输入商品名称" />
+		</div>
+		<span class="searchBtn">
+			搜索
+		</span>
+	</header>
+	<main>
+		<div class="mui-content mui-row mui-fullscreen" style="margin-top:44px;">
+			<div class="mui-col-xs-3">
+				<div id="segmentedControls"
+					class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+				</div>
+			</div>
+			<div id="segmentedControlContents" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+
+			</div>
+		</div>
+	</main>
+	<footer>
+		<div class="bottomTip">
+			请在提交订单后确认配送费及价格，如有疑问请电联商家
+		</div>
+		<ul class="goodsList" id="shopCar">
+
+		</ul>
+		<div class="bottomBar">
+			<div class="shopCar">
+				<i class="fa fa-shopping-cart shoppingIcon" aria-hidden="true"></i>
+				<span class="badge">0</span>
+			</div>
+			<div class="bottomRight">
+				<div class="totalBottom">
+					<span>合计:</span>
+					<span class="bRed">￥</span>
+					<span class="bRed bBig">18.98</span>
+				</div>
+				<div class="goShoppping" id="goShoppping">
+					<span style="margin-right:4px;">去结算</span>
+					<i class="fa fa-caret-right" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+
+		if (localStorage.localShopCar == 'null' || localStorage.localShopCar == undefined) {
+			localStorage.setItem("localShopCar",
+				'<div class="totalTip" style="display:block">已选商品 <span class="shopcarTotalCount"> 0 </span> 件</div>')
+			$('.badge').text('0')
+			$('.bRed.bBig').text('0')
+			localStorage.setItem("totalPrice", '0')
+			localStorage.setItem("badge", '0')
+		}
+
+		console.log(localStorage.localShopCar)
+		console.log(localStorage.totalPrice)
+		console.log(localStorage.badge)
+
+		var shopCarHtml = localStorage.localShopCar
+		if (localStorage.badge != 0) {
+			$('footer').addClass('store')
+			$('.badge').text(localStorage.badge)
+			$('.bRed.bBig').text(localStorage.totalPrice)
+			$('#shopCar').append(shopCarHtml)
+		}
+
+		mui.ajax('../json/goods.json', {
+			data: {},
+			dataType: 'json', //服务器返回json格式数据
+			type: 'get', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function (data) {
+				var controls = document.getElementById("segmentedControls");
+				var contents = document.getElementById("segmentedControlContents");
+				var html = [];
+				var shopCarHtml = []
+				console.log(data)
+				for (var i = 0; i < data.length; i++) {
+					let element = data[i].varieties;
+					html.push('<a class="mui-control-item" href="#content' + i + '">' + element + '</a>');
+				}
+				controls.innerHTML = html.join('');
+				html = [];
+				for (let i = 0; i < data.length; i++) {
+					html.push('<div id="content' + i +
+						'" class="mui-control-content"><ul class="mui-table-view goods">');
+					let cardNum = data[i].goods.length
+					for (var j = 0; j < cardNum; j++) {
+						let item = data[i].goods[j]
+						html.push(
+							'<li class="mui-table-view-cell gtId' + item.gtId + '" id="' + item.gtId + '">' +
+							'<div class="mui-card-content">' +
+							'<div class="mui-card-content-inner">' +
+							'<div class="leftBox">' +
+							'<div class="goodsImg">' +
+							'<img src="' + item.product.productImg + '">' +
+							'</div>' +
+							'<div>' +
+							'<p class="goodsName">' + item.product.productName + ' <span>' + item.weight +
+							'g</span></p>' +
+							'<p class="weight">剩余 <span class="stock">' + item.productNumber + '</span></p>' +
+							'<p>' +
+							'<span class="colorRed">￥</span><span class="colorRed price">' + item.price +
+							'</span>' +
+							'<span class="lineThrough">￥</span><span class="lineThrough">4.98</span>' +
+							'</p>' +
+							'</div>' +
+							'</div>' +
+							'<div class="rightBox">' +
+							'<div class="positionBottom">' +
+							'<button class="reduce none"><i class="fa fa-minus sIcon" aria-hidden="true"></i></button>' +
+							'<span class="count none">0</span>' +
+							'<button class="add btnRed"><i class="fa fa-plus sIcon white" aria-hidden="true"></i></button>' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'</li>'
+						);
+					}
+					html.push('<div class="foot-blank"></div>');
+					html.push('</ul></div>');
+				}
+				contents.innerHTML = html.join('');
+				//默认选中第一个
+				controls.querySelector('.mui-control-item').classList.add('mui-active');
+				contents.querySelector('.mui-control-content').classList.add('mui-active');
+
+				for (var shopCarLi = 0; shopCarLi < $('#shopCar li').length; shopCarLi++) {
+					for (var goodsLi = 0; goodsLi < $('.goods li').length; goodsLi++) {
+						if ($('#shopCar li').eq(shopCarLi).attr('id') == $('.goods li').eq(goodsLi).attr('id')) {
+							$('.goods li').eq(goodsLi).addClass('addShopcar')
+							$('.goods li').eq(goodsLi).find('.count').text($('#shopCar li').eq(shopCarLi).find(
+								'.count').text())
+							$('.goods li').eq(goodsLi).find('.add').removeClass('btnRed').siblings(
+								'.count').removeClass('none')
+							$('.goods li').eq(goodsLi).find('.add').children('.fa').removeClass('white')
+							$('.goods li').eq(goodsLi).find('.add').siblings('.reduce').removeClass(
+								'none')
+						}
+					}
+				}
+				add()
+				reduce()
+				$('.mui-table-view li').on('click', function () {
+					// console.log()
+					location.href = 'goodsDetail.html?id=' + $(this).attr('id')
+				})
+			},
+			error: function (xhr, type, errorThrown) {
+				//异常处理；
+				console.log(type);
+			}
+		});
+
+		var hasShopList = false
+		$('.shopCar').on('click', function () {
+			hasShopList = !hasShopList
+			if (hasShopList) {
+				$('.goodsList').css('height', '200px')
+				$('.bottomTip').addClass('position')
+				$('.bottomBar').addClass('position')
+				$('body').append(`<div class="bigBg"></div>`);
+				// $('#shopCar').html(
+				// 	'<div class="totalTip" style="display:block">已选商品 <span class="shopcarTotalCount">' + count +
+				// 	'</span> 件</div>')
+				$('#shopCar').html(shopCarHtml)
+				$('.shopcarTotalCount').text($('.badge').text())
+				add()
+				reduce()
+			} else {
+				$('.goodsList').css('height', '0')
+				$('.bottomTip').removeClass('position')
+				$('.bottomBar').removeClass('position')
+				$('.bigBg').remove();
+			}
+			$('.bigBg').on('click', function () {
+				hasShopList = false
+				$('.goodsList').css('height', '0')
+				$('.bottomTip').removeClass('position')
+				$('.bottomBar').removeClass('position')
+				$('.bigBg').remove();
+			})
+		})
+
+		$('#goShoppping').click(function () {
+			location.href = "confirmOrder.html"
+		})
+
+		$('.searchBtn').click(function () {
+			if ($('#search').val() == '') {
+				mui.toast('请输入商品名称');
+			} else {
+				location.href = "searchResult.html"
+			}
+		})
+
+		function add(e) {
+			$('.add').unbind("click").bind("click", function (e) {
+				e.stopPropagation()
+				console.log()
+				if ($(this).parents('li').find('.stock').text() != '0') {
+					$(this).parents('li').addClass('addShopcar')
+					var classList = $(this).parents('li').attr("class")
+
+					$('ul li').each(function () {
+						if ($(this).hasClass(classList)) {
+							let count = parseInt($(this).find('.add').siblings('.count').text())
+							count++
+							if (count == 100) {
+								count = 99
+								mui.toast('不能再多了');
+							}
+							let stock = parseInt($(this).find('.add').parent().parent().siblings('.leftBox')
+								.find(
+									'.stock').text())
+							if (count >= stock) {
+								count = stock
+								mui.toast('库存不足');
+							}
+							// console.log(count)
+							$(this).find('.add').removeClass('btnRed').siblings('.count').text(count)
+								.removeClass(
+									'none')
+							$(this).find('.add').children('.fa').removeClass('white')
+							$(this).find('.add').siblings('.reduce').removeClass('none')
+						}
+					})
+				} else {
+					mui.toast('库存不足');
+					return
+				}
+
+				let badge = 0
+				let totalPrice = 0
+				let hasCount = []
+
+				shopCarHtml = []
+
+				// console.log($('ul.goods li').attr('addShopcar'))
+
+				$('ul.goods li').each(function () {
+					if ($(this).hasClass('addShopcar')) {
+						shopCarHtml += $(this).prop("outerHTML")
+						if ($(this).find('.count').text() == 0) {
+							shopCarHtml -= $(this).prop("outerHTML")
+						}
+					}
+				})
+
+				console.log(shopCarHtml)
+				console.log(localStorage.localShopCar)
+
+				for (var y = 0; y < $('.goods .count').length; y++) {
+					hasCount.push($('.goods .count').eq(y).text())
+					totalPrice += $('.goods .count').eq(y).text() * $('.goods .count').eq(y).parents('li').find(
+						'.colorRed.price').text()
+				}
+
+				$('.bRed.bBig').text(totalPrice)
+				localStorage.setItem("totalPrice", totalPrice)
+
+				console.log(totalPrice)
+				for (var x = 0; x < hasCount.length; x++) {
+					badge += parseInt(hasCount[x])
+					$('.badge').text(badge)
+
+					localStorage.setItem("badge", badge)
+
+					if ($('.shopcarTotalCount')) {
+						$('.shopcarTotalCount').text(badge)
+					}
+
+					if (hasCount[x] != 0) {
+						$('footer').addClass('store')
+					}
+				}
+
+				shopCarHtml = '<div class="totalTip" style="display:block">已选商品 <span class="shopcarTotalCount">' +
+					badge + '</span> 件</div>' + shopCarHtml
+				localStorage.setItem("localShopCar", shopCarHtml)
+			})
+		}
+
+		function reduce() {
+			$('.reduce').unbind("click").bind("click", function (e) {
+				e.stopPropagation()
+				var classList = $(this).parents('li').attr("class")
+				$('ul li').each(function () {
+					if ($(this).hasClass(classList)) {
+						let count = parseInt($(this).find('.reduce').siblings('.count').text())
+						count--
+						$(this).find('.reduce').siblings('.count').text(count)
+						if (count == 0) {
+							$(this).find('.reduce').siblings('.count').text(count).addClass('none')
+							$(this).find('.reduce').siblings('.add').addClass('btnRed').children('.fa')
+								.addClass('white')
+							$(this).find('.reduce').addClass('none')
+							$(this).find('.reduce').parents('li').removeClass('addShopcar')
+						}
+						// console.log(count)
+					}
+				})
+
+				if ($('#shopCar').find('.count').text()) {
+					let shopCar = $('#shopCar').find('.count').text().split('')
+					for (var z = 0; z < shopCar.length; z++) {
+						if (shopCar[z] == 0 && isAllEqual(shopCar) == true) {
+							// $('footer').removeClass('store')
+							$('.goodsList').css('height', '0')
+							$('.bottomTip').removeClass('position')
+							$('.bottomBar').removeClass('position')
+							$('.bigBg').remove();
+							hasShopList = false
+						}
+					}
+				}
+
+				shopCarHtml = []
+				$('ul.goods li').each(function () {
+					if ($(this).hasClass('addShopcar')) {
+						shopCarHtml += $(this).prop("outerHTML")
+						if ($(this).find('.count').text() == 0) {
+							shopCarHtml -= $(this).prop("outerHTML")
+						}
+					}
+				})
+				console.log(shopCarHtml)
+
+				let badge = 0
+				let totalPrice = 0
+				let hasCount = []
+				for (var y = 0; y < $('.goods .count').length; y++) {
+					hasCount.push($('.goods .count').eq(y).text())
+					totalPrice += $('.goods .count').eq(y).text() * $('.goods .count').eq(y).parents('li').find(
+						'.colorRed.price').text()
+				}
+
+				localStorage.setItem("totalPrice", totalPrice)
+
+				$('.bRed.bBig').text(totalPrice)
+				for (var y = 0; y < hasCount.length; y++) {
+					badge += parseInt(hasCount[y])
+					$('.badge').text(badge)
+
+
+					if ($('.shopcarTotalCount')) {
+						$('.shopcarTotalCount').text(badge)
+					}
+
+					if (hasCount[y] == 0 && isAllEqual(hasCount) == true) {
+						$('footer').removeClass('store')
+					} else {
+						$('footer').addClass('store')
+					}
+				}
+
+				if (hasCount.length == 0) {
+					$('.badge').text(0)
+				}
+
+				localStorage.setItem("badge", badge)
+
+				shopCarHtml = '<div class="totalTip" style="display:block">已选商品 <span class="shopcarTotalCount">' +
+					badge + '</span> 件</div>' + shopCarHtml
+				localStorage.setItem("localShopCar", shopCarHtml)
+			})
+		}
+		//判断数组元素是否相同
+		function isAllEqual(array) {
+			if (array.length > 0) {
+				return !array.some(function (value, index) {
+					return value !== array[0];
+				});
+			} else {
+				return true;
+			}
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>搜索结果</title>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/zepto.js" type="text/javascript" charset="utf-8"></script>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/global.css" />
+	<link rel="stylesheet" href="css/searchResult.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css" />
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+	</script>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<div class="inputBox">
+			<i class="fa fa-search searchIcon" aria-hidden="true"></i>
+			<input type="" name="" id="search" value="" placeholder="请输入商品名称" />
+		</div>
+		<span class="searchBtn">
+			搜索
+		</span>
+	</header>
+	<main>
+		<div style="height: 44px;"></div>
+		<ul class="goodsList">
+			<li>
+				<div class="leftBox">
+					<img src="img/bocai.png">
+					<div>
+						<p class="goodsName">菠菜</p>
+						<p class="weight"><span>250</span>&nbsp;g</p>
+						<p class="stockBox">剩余: <span class="stock">5</span></p>
+						<p>
+							<span class="colorRed">￥</span><span class="colorRed">3.98</span>
+							<span class="lineThrough">￥</span><span class="lineThrough">4.98</span>
+						</p>
+					</div>
+				</div>
+				<div class="rightBox">
+					<i class="fa fa-angle-right" aria-hidden="true"></i>
+				</div>
+			</li>
+			<li>
+				<div class="leftBox">
+					<img src="img/bocai.png">
+					<div>
+						<p class="goodsName">菠菜</p>
+						<p class="weight"><span>500g</span>&nbsp;g</p>
+						<p class="stockBox">剩余: <span class="stock">54</span></p>
+						<p>
+							<span class="colorRed">￥</span><span class="colorRed">8.98</span>
+							<span class="lineThrough">￥</span><span class="lineThrough">4.98</span>
+						</p>
+					</div>
+				</div>
+				<div class="rightBox">
+					<i class="fa fa-angle-right" aria-hidden="true"></i>
+				</div>
+			</li>
+		</ul>
+	</main>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		$('.goodsList li').click(function () {
+			location.href = 'goodsDetail.html'
+		})
+	</script>
+</body>
+
+</html>

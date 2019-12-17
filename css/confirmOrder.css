@@ -1,0 +1,110 @@
+a.mui-action-back.mui-icon.mui-icon-left-nav.mui-pull-left {
+  color: #333;
+}
+
+.mui-table-view-cell {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.mui-table-view-cell div:first-child {
+  min-width: 100px;
+}
+
+footer {
+  height: 50px;
+  padding: 0;
+  transition: 0.5s;
+  z-index: 2000;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted
+  .mui-control-item.mui-active {
+  color: #333;
+  background: #eee;
+  color: #c81622;
+}
+
+.bottomTip {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 11px;
+  background: #f5eee0;
+  padding: 0 10px;
+}
+
+.bottomBar {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 0;
+  border-top: 1px solid #eee;
+}
+
+.goShoppping {
+  width: 130px;
+  height: 100%;
+  background: #c81622;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goShoppping span,
+.goShoppping i {
+  font-size: 16px;
+  color: #fff;
+}
+
+.bottomLeft {
+  width: calc(100% - 130px);
+}
+
+.bottomRight {
+  width: 130px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalBottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+
+.totalBottom span {
+  font-size: 12px;
+}
+
+.totalBottom .bRed {
+  color: #c81622;
+}
+
+.totalBottom .bRed.bBig {
+  font-size: 20px;
+}
+
+.mui-poppicker {
+  z-index: 3000 !important;
+}
+
+.orderRemarksBox {
+  display: none;
+  padding: 10px;
+}
+
+.orderRemarksMain {
+  padding: 10px 10px;
+}
+
+#orderRemarks {
+  font-size: 14px;
+  margin-bottom: 5px;
+}

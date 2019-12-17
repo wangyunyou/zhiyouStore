@@ -1,0 +1,82 @@
+body {
+  background: #fff;
+}
+
+.time {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.money {
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.small {
+  font-size: 20px;
+}
+
+.big {
+  font-size: 40px;
+}
+
+.confirm {
+  width: 90%;
+  height: 40px;
+  background: #c81622;
+  border-radius: 6px;
+  color: #fff;
+  text-align: center;
+}
+
+.position {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 4%;
+}
+
+.mui-input-row.mui-radio {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mui-input-row.mui-radio label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 16px;
+}
+
+.mui-input-row.mui-radio label img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.mui-radio input[type="radio"],
+.mui-checkbox input[type="checkbox"] {
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+}
+
+.mui-radio input[type="radio"]:checked:before,
+.mui-checkbox input[type="checkbox"]:checked:before {
+  color: #c81622;
+  font-size: 22px;
+}
+
+.mui-toast-container {
+  bottom: 50% !important;
+}

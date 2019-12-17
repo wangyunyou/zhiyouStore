@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>订单详情</title>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/zepto.js" type="text/javascript" charset="utf-8"></script>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/global.css" />
+	<link rel="stylesheet" type="text/css" href="css/orderDetail.css" />
+	<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css" />
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+	</script>
+	<style>
+		.confirmRefund {
+			display: none;
+		}
+
+		.footer {
+			width: 100%;
+			height: 50px;
+			background: #fff;
+			border-top: 1px solid #eee;
+			padding: 0 10px;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="topTip">
+			<div class="stateList">
+				<div class="topState">等待买家付款</div>
+				<div class="topSmallTip">
+					剩
+					<span style="color: #c81622;">10:00</span>
+					自动取消订单
+				</div>
+			</div>
+
+			<div class="stateList">
+				<div class="topState">已支付</div>
+			</div>
+
+			<div class="stateList">
+				<div class="topState">配送中</div>
+			</div>
+
+			<div class="stateList">
+				<div class="topState">待取件</div>
+				<div class="topSmallTip">
+					取件码:
+					<span style="color: #c81622;">dff43g</span>
+				</div>
+			</div>
+
+			<div class="stateList">
+				<div class="topState">订单完成</div>
+			</div>
+
+			<div class="stateList">
+				<div class="topState">退款成功</div>
+			</div>
+
+			<div class="stateList">
+				<div class="topState">订单已取消</div>
+				<div class="topSmallTip">
+					超时取消
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<div class="mui-card-header">
+			<span>
+				生鲜商城
+				<i class="fa fa-angle-right" aria-hidden="true"></i>
+			</span>
+		</div>
+		<div class="mui-card-content">
+			<div class="mui-card-content-inner">
+				<ul class="goodsList">
+					<li>
+						<div class="leftBox">
+							<img src="img/bocai.png">
+							<div>
+								<p class="goodsName">菠菜</p>
+								<p class="weight">250g</p>
+								<p>
+									<span>￥</span><span>3.98</span>
+									<span class="lineThrough">￥</span><span class="lineThrough">4.98</span>
+								</p>
+							</div>
+						</div>
+						<div class="rightBox">
+							<div class="positionBottom">
+								<span>x</span><span>1</span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="leftBox">
+							<img src="img/xihongshi.png">
+							<div>
+								<p class="goodsName">菠菜</p>
+								<p class="weight">250g</p>
+								<p>
+									<span>￥</span><span>3.98</span>
+								</p>
+							</div>
+						</div>
+						<div class="rightBox">
+							<div class="positionBottom">
+								<span>x</span><span>1</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="totalDetail">
+					<div>商品总价</div>
+					<div><span>￥</span><span>7.96</span></div>
+				</div>
+				<div class="totalBox">
+					<div class="linkService">
+						<a href="tel:+8610086" style="color: #c81622;">
+							<i class="fa fa-phone" aria-hidden="true"></i>
+							联系客服
+						</a>
+					</div>
+					<div>
+						共<span class="count">2</span>件商品&nbsp;&nbsp;合计:￥&nbsp;<span class="totalPrice">3.98</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bgline"></div>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<div>配送信息</div>
+			</li>
+			<li class="mui-table-view-cell">
+				<div class="title">预计送达时间:</div>
+				<div>
+					约<span> 18:21 </span>
+				</div>
+			</li>
+			<li class="mui-table-view-cell">
+				<div class="title">
+					收货地址:
+				</div>
+				<div>
+					南京市鼓楼区XXX小区
+				</div>
+			</li>
+		</ul>
+		<div class="bgline"></div>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<div>订单信息</div>
+			</li>
+			<li class="mui-table-view-cell">
+				<div class="title">订单编号:</div>
+				<div>
+					111110000222
+				</div>
+			</li>
+			<li class="mui-table-view-cell">
+				<div class="title">
+					下单时间:
+				</div>
+				<div>
+					2019/11/11 17:20:20
+				</div>
+			</li>
+			<li class="mui-table-view-cell">
+				<div class="title">
+					订单备注:
+				</div>
+				<div>
+					不要辣椒
+				</div>
+			</li>
+		</ul>
+		<div class="bgline"></div>
+		<div class="refundBox">
+			<textarea name="" id="refund" cols="30" rows="4" placeholder="请填写退款原因"></textarea>
+		</div>
+		<div class="bgline hide"></div>
+	</main>
+	<div class="footer">
+		<div class="btnBox">
+			<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined cancelOrder">
+				取消订单
+			</button>
+			<button type="button" class="mui-btn mui-btn-danger toPay">
+				付款
+			</button>
+			<button type="button" class="mui-btn mui-btn-danger refund">
+				申请退款
+			</button>
+			<button type="button" class="mui-btn mui-btn-danger confirmRefund">
+				确认退款
+			</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('.stateList').eq(0).show()
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var lastTime, num;
+
+		$('.cancelOrder').click(function () {
+			var btnArray = ['否', '是'];
+			mui.confirm('  ', '确认取消订单？', btnArray, function (e) {
+				if (e.index == 1) {
+					mui.toast('取消成功')
+					setTimeout(() => {
+						location.href = 'index.html'
+					}, 1500);
+				} else {
+					mui.toast('您取消了操作')
+				}
+			})
+		})
+
+		$('.toPay').click(function () {
+			location.href = "pay.html"
+		})
+
+		$('.refund').click(function (e) {
+			var nowTime = new Date();
+			if (lastTime == undefined || Math.round(nowTime.getTime() - lastTime.getTime()) > 1000) {
+				lastTime = nowTime;
+				num = 1;
+			} else {
+				lastTime = nowTime;
+			}
+			if (num == 1) {
+				$(this).hide()
+				$('.confirmRefund').show()
+				$('.refundBox').addClass('show')
+				$('.bgline.hide').removeClass('hide')
+				$('#refund').focus()
+				// window.scrollTo(0, document.documentElement.clientHeight);
+				$('#refund').blur(function () {
+					// alert('q')
+					window.scrollTo(0, document.documentElement.clientHeight);
+					// $('.confirmRefund').show()
+					// $('footer').css("bottom","0")
+				})
+
+
+				lastTime = nowTime;
+				num = 0;
+			}
+		})
+
+		$('.confirmRefund').click(function () {
+			// document.activeElement.blur()
+			// $('#refund').blur()
+			// $('#refund').blur(function () {
+			window.scrollTo(0, document.documentElement.clientHeight);
+			// })
+
+			var btnArray = ['否', '是'];
+			mui.confirm('  ', '确认退款？', btnArray, function (e) {
+				if (e.index == 1) {
+					mui.toast('取消成功')
+					setTimeout(() => {
+						location.href = 'index.html'
+					}, 1500);
+				} else {
+					mui.toast('您取消了操作')
+				}
+			})
+		})
+
+		// function fun1() {
+		// 	fun()
+		// 	console.log(1)
+		// }
+		var isclick = true;
+
+		// $('.test').click(function () {
+		// 	click()
+		// 	console.log(isclick)
+		// 	console.log('test')
+		// })
+
+
+		// function click() {
+		// 	if (isclick) {
+		// 		isclick = false;
+
+		// 		setTimeout(function () {
+		// 			isclick = true;
+		// 		}, 500);
+		// 	}
+		// 	return false
+		// }
+
+
+		// $(".test").click(function () {
+		// 	var last = Date.now();
+		// 	return function () {
+		// 		var now = Date.now();
+		// 		if ((now - last) > 1000) {
+		// 			console.log(1);
+		// 		}
+		// 		last = now;
+		// 	}
+		// });
+
+		// $(".test").click(function () {
+
+		// 	//写事件
+		// 	console.log(1)
+		// })
+
+		// var num = 0;
+		// var t = null;
+
+		// function fun(e) {
+		// 	if (t != null) {
+		// 		clearTimeout(t)
+		// 	}
+		// 	t = setTimeout(function () {
+		// 		num++;
+		// 		console.log(num);
+		// 	}, 1000)
+		// }
+
+
+		// var tiemer = "";
+		// var countTime = 3000;
+		// var fun = function bindClick() {
+		// 	$("button").unbind("click");
+		// 	tiemer = setTimeout(function () {
+		// 		$("button").click(fun);
+		// 	}, countTime);
+		// };
+	</script>
+
+	<!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+	<script>
+		eruda.init();
+	</script> -->
+</body>
+
+</html>

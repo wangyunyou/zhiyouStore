@@ -1,0 +1,59 @@
+a.mui-action-back.mui-icon.mui-icon-left-nav.mui-pull-left {
+  color: #333;
+}
+
+body {
+  background: #fff;
+}
+
+.mui-input-row {
+  clear: none;
+}
+
+.inputBox {
+  width: calc(100% - 85px);
+  height: 30px;
+  margin-left: 10px;
+  margin-top: 7px;
+  padding: 0;
+  line-height: 28px;
+  border: 1px solid #eee;
+  background: #eee;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.searchIcon {
+  color: #ccc;
+  margin: 0 5px 0 10px;
+}
+
+.inputBox input {
+  width: 80%;
+  border: none;
+  outline: none;
+  background: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.searchBtn {
+  font-size: 15px;
+  line-height: 44px;
+  display: inline-block;
+  float: right;
+}
+
+.goodsList .leftBox img {
+  width: 80px;
+  height: 80px;
+}
+
+.goodsList .leftBox .weight span {
+  color: #ccc;
+}
+
+.goodsList .leftBox .colorRed {
+  font-size: 16px;
+  color: #c81622;
+}

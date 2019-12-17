@@ -1,0 +1,310 @@
+a.mui-action-back.mui-icon.mui-icon-left-nav.mui-pull-left {
+  color: #333;
+}
+
+body {
+  background: #fff;
+}
+
+.mui-input-row {
+  clear: none;
+}
+
+.inputBox {
+  width: calc(100% - 85px);
+  height: 30px;
+  margin-left: 10px;
+  margin-top: 7px;
+  padding: 0;
+  line-height: 28px;
+  border: 1px solid #eee;
+  background: #eee;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.searchIcon {
+  color: #ccc;
+  margin: 0 5px 0 10px;
+}
+
+.inputBox input {
+  width: 80%;
+  border: none;
+  outline: none;
+  background: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.searchBtn {
+  font-size: 15px;
+  line-height: 44px;
+  display: block;
+  float: right;
+}
+
+.mui-row.mui-fullscreen > [class*="mui-col-"] {
+  height: 100%;
+}
+
+.mui-col-xs-3,
+.mui-control-content {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.mui-segmented-control .mui-control-item {
+  line-height: 50px;
+  width: 100%;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted
+  .mui-control-item.mui-active {
+  background-color: #fff;
+}
+
+/* .mui-fullscreen {
+	position: none;
+} */
+
+footer {
+  height: 0;
+  /* height: 70px; */
+  padding: 0;
+  transition: 0.5s;
+  z-index: 2000;
+}
+
+footer.store {
+  height: 70px;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted
+  .mui-control-item.mui-active {
+  color: #333;
+  background: #eee;
+  color: #c81622;
+}
+
+.mui-col-xs-3,
+.mui-col-xs-9 {
+  background: #fff;
+}
+
+.mui-table-view:after {
+  background-color: #fff;
+}
+
+.positionBottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.count,
+.countGoodsList {
+  width: 22px;
+  text-align: center;
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.reduce,
+.add,
+.reduceGoodsList,
+.addGoodsList {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.btnRed {
+  background: #c81622;
+  border: none;
+}
+
+.none {
+  display: none;
+}
+
+.white {
+  color: #fff;
+}
+
+.sIcon {
+  font-size: 8px !important;
+}
+
+.stock {
+  color: #ccc;
+}
+
+.colorRed {
+  color: #c81622;
+}
+
+.bottomTip {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 11px;
+  background: #f5eee0;
+  padding: 0 10px;
+}
+
+.bottomBar {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2000;
+  border-top: 1px solid #eee;
+}
+
+.bottomBar.position {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.goShoppping {
+  width: 130px;
+  height: 100%;
+  background: #c81622;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goShoppping span,
+.goShoppping i {
+  font-size: 16px;
+  color: #fff;
+}
+
+.shopCar {
+  width: 80px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.fa.fa-shopping-cart.shoppingIcon {
+  color: #c81622;
+  font-size: 26px;
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 14px;
+  color: #fff;
+  background: #dd524d;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottomRight {
+  width: 290px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalBottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  padding-right: 10px;
+}
+
+.totalBottom span {
+  font-size: 12px;
+}
+
+.totalBottom .bRed {
+  color: #c81622;
+}
+
+.totalBottom .bRed.bBig {
+  font-size: 20px;
+}
+
+.goodsList {
+  width: 100%;
+  height: 0;
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  background: #fff;
+  overflow: auto;
+}
+
+.bottomTip.position {
+  position: fixed;
+  z-index: 2000;
+  bottom: 250px;
+  left: 0;
+}
+
+.bigBg {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#shopCar .totalTip {
+  display: block;
+  font-size: 12px;
+  height: 30px;
+  padding: 0 10px;
+  line-height: 30px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.mui-card-content {
+  width: 100%;
+}
+
+#shopCar li {
+  display: none;
+}
+
+#shopCar li.addShopcar {
+  display: block;
+}
+
+.goodsImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.goodsImg img {
+  display: block;
+  width: auto;
+  height: 60px;
+}

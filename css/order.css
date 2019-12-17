@@ -1,0 +1,15 @@
+.mui-segmented-control {
+  border: none;
+}
+
+.mui-segmented-control .mui-control-item {
+  border-left: 1px solid #eee;
+  background: #fff;
+  color: #333;
+}
+
+.mui-segmented-control .mui-control-item.mui-active {
+  border-bottom: 1px solid red;
+  background: #fff;
+  color: #333;
+}
