@@ -17,6 +17,25 @@
 	<script type="text/javascript" charset="utf-8">
 		mui.init();
 	</script>
+	<style>
+		[contenteditable="true"],
+		input,
+		textarea {
+			-webkit-user-select: auto !important;
+			-khtml-user-select: auto !important;
+			-moz-user-select: auto !important;
+			-ms-user-select: auto !important;
+			-o-user-select: auto !important;
+			user-select: auto !important;
+		}
+
+		#search {
+			margin: 0;
+			padding: 0;
+			height: 30px;
+			line-height: 30px;
+		}
+	</style>
 </head>
 
 <body>
@@ -24,7 +43,7 @@
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		<div class="inputBox">
 			<i class="fa fa-search searchIcon" aria-hidden="true"></i>
-			<input type="" name="" id="search" value="" placeholder="请输入商品名称" />
+			<input type="text" name="" id="search" value="" placeholder="请输入商品名称" />
 		</div>
 		<span class="searchBtn">
 			搜索

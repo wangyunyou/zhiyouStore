@@ -250,7 +250,6 @@
 		function add(e) {
 			$('.add').unbind("click").bind("click", function (e) {
 				e.stopPropagation()
-				console.log()
 				if ($(this).parents('li').find('.stock').text() != '0') {
 					$(this).parents('li').addClass('addShopcar')
 					var classList = $(this).parents('li').attr("class")
@@ -264,8 +263,7 @@
 								mui.toast('不能再多了');
 							}
 							let stock = parseInt($(this).find('.add').parent().parent().siblings('.leftBox')
-								.find(
-									'.stock').text())
+								.find('.stock').text())
 							if (count >= stock) {
 								count = stock
 								mui.toast('库存不足');
